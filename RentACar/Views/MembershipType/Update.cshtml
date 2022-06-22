@@ -1,0 +1,31 @@
+﻿@model RentACar.Models.MembershipType
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update</h2>
+
+<form style="display: flex; flex-direction: column;" action="/MembershipType/UpdateSubmit" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>Id</label>
+        <input class="form-control" name="id" value=@Model.Id readonly />
+    </div>
+    <div class="form-group">
+        <label>SignUpFee</label>
+        <input class="form-control" placeholder="Signup Fee" type="number" name="SignUpFee" value=@Model.SignUpFee required />
+    </div>
+    <div class="form-group">
+        <label>DurationInMonths</label>
+        <input class="form-control" placeholder="Duration In Months" type="number" name="DurationInMonths" value=@Model.DurationInMonths required />
+    </div>
+    <div class="form-group">
+        <label>DiscountRate</label>
+        <input class="form-control" placeholder="Discount Rate" type="number" name="DiscountRate" value=@Model.DiscountRate required />
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Update MembershipType" />
+</form>
+

@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<form style="display: flex; flex-direction: column;" action="/MembershipType/CreateSubmit" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label>SignUpFee</label>
+        <input id="signupFee" class="form-control" placeholder="Signup Fee" type="number" name="SignUpFee" />
+        <p id="errorS" style="color: red; margin-top: 5px; margin-bottom: -5px; visibility: hidden">You need to enter SignupFee!</p>
+    </div>
+    <div class="form-group">
+        <label>DurationInMonths</label>
+        <input id="durationInMonths" class="form-control" placeholder="Duration In Months" type="number" name="DurationInMonths" />
+        <p id="errorD" style="color: red; margin-top: 5px; margin-bottom: -5px; visibility: hidden">You need to enter DurationInMonths!</p>
+    </div>
+    <div class="form-group">
+        <label>DiscountRate</label>
+        <input id="discountRate" class="form-control" placeholder="Discount Rate" type="number" name="DiscountRate" />
+        <p id="errorR" style="color: red; margin-top: 5px; margin-bottom: -5px; visibility: hidden">You need to enter DiscountRate!</p>
+    </div>
+
+    <input id="submit" class="btn btn-primary" type="submit" value="Create MembershipType" />
+</form>
+
+<script>
+    document.getElementById("submit").addEventListener("click", (e) => {
+        const signupFee = document.getElementById("signupFee").value
+        const durationInMonths = document.getElementById("durationInMonths").value
+        const discountRate = document.getElementById("discountRate").value
+
+        if (!signupFee) {
+            e.preventDefault()
+
+            const error = document.getElementById("errorS")
+            error.style.visibility = 'visible'
+
+            setTimeout(() => {
+                error.style.visibility = 'hidden'
+            }, 3000)
+        }
+
+        if (!durationInMonths) {
+            e.preventDefault()
+
+            const error = document.getElementById("errorD")
+            error.style.visibility = 'visible'
+
+            setTimeout(() => {
+                error.style.visibility = 'hidden'
+            }, 3000)
+        }
+
+        if (!discountRate) {
+            e.preventDefault()
+
+            const error = document.getElementById("errorR")
+            error.style.visibility = 'visible'
+
+            setTimeout(() => {
+                error.style.visibility = 'hidden'
+            }, 3000)
+        }
+    })
+</script>
+
+

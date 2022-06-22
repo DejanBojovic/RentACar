@@ -1,0 +1,21 @@
+﻿@model List<RentACar.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Customers</h1>
+
+<h3>List of Customers</h3>
+@foreach (var customer in Model)
+{
+    <div style="padding: 10px 15px; background-color: #f4f4f4; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+        <p style="margin-bottom: 0">@customer.Name</p>
+        
+
+    </div>
+}
+
+
+
+

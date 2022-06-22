@@ -1,0 +1,80 @@
+﻿@model List<RentACar.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<h1>Customers</h1>
+
+<div style="margin-bottom: 30px" class="btn btn-primary">@Html.ActionLink("Create New Customer", "Create", "Customers", new { @style="color: white"})</div>
+
+<div style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 5px">
+    <div style="display: flex; align-items: center" class="form-group">
+        <label style="margin-right: 15px; margin-bottom: 0px; width: 160px">Find Customer</label>
+        <input id="input" class="form-control" type="text" placeholder="Enter a name" />
+    </div>
+    <div id="sort" style="width: 100px; color: white" class="btn btn-info">Sort</div>
+</div>
+<div id="customersContainer">
+    @foreach (var customer in Model)
+    {
+        <div id="customer" style="padding: 10px 15px; background-color: #f4f4f4; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <p style="margin-bottom: 0">@customer.Name</p>
+            <div>
+                <div class="btn btn-danger">@Html.ActionLink("Delete Customer", "Delete", "Customers", new { id = customer.Id }, new { @style = "color: white" })</div>
+                <div class="btn btn-success">@Html.ActionLink("Update Customer", "Update", "Customers", new { id = customer.Id }, new { @style = "color: white" })</div>
+            </div>
+
+        </div>
+    }
+</div>
+
+<script>
+    const input = document.querySelector('#input')
+    const data = document.querySelectorAll('#customer')
+
+    input.addEventListener('input', () => {
+        if (input.value.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].style.display = "flex"
+            }
+        }
+
+        for (let i = 0; i < data.length; i++) {
+            if ((data[i].children[0].innerText).includes(input.value)) {
+                
+                data[i].style.display = "flex"
+            } else {
+                data[i].style.display = "none"
+            }
+        }
+    })
+
+    document.getElementById("sort").addEventListener("click", () => {
+        const customers = []
+        const data = document.querySelectorAll('#customer')
+
+        for (let i = 0; i < data.length; i++) {
+            customers.push(data[i].children[0].innerText)
+        }
+        const customersSorted = customers.sort()
+
+        const customersContainer = document.getElementById("customersContainer")
+        customersContainer.innerHTML = ""
+
+        for (let i = 0; i < customersSorted.length; i++) {
+            for (let j = 0; j < data.length; j++) {
+                if (customersSorted[i] === data[j].children[0].innerText) {
+                    customersContainer.append(data[j])
+                    break
+                }
+            }
+        }
+
+    })
+</script>
+
+
+

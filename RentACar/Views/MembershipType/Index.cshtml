@@ -1,0 +1,23 @@
+﻿
+@model List<RentACar.Models.MembershipType>
+
+@{
+    ViewBag.Title = "Random";
+}
+
+<h1>Membership Types</h1>
+
+<div style="margin-bottom: 30px" class="btn btn-primary">@Html.ActionLink("Create New MembershipType", "Create", "MembershipType", new { @style = "color: white" })</div>
+
+@foreach (var mt in Model)
+{
+    <div style="padding: 10px 15px; background-color: #f4f4f4; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+        <p style="margin-bottom: 0">Monts: @mt.DurationInMonths</p>
+        <div>
+            <div class="btn btn-danger">@Html.ActionLink("Delete MembershipType", "Delete", "MembershipType", new { id = mt.Id }, new { @style = "color: white" })</div>
+            <div class="btn btn-success">@Html.ActionLink("Update MembershipType", "Update", "MembershipType", new { id = mt.Id }, new { @style = "color: white" })</div>
+        </div>
+
+    </div>
+}
+

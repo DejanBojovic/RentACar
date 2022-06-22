@@ -1,0 +1,81 @@
+﻿
+@model List<RentACar.Models.Car>
+
+@{
+    ViewBag.Title = "Random";
+}
+
+<h1>Cars</h1>
+
+<div style="margin-bottom: 30px" class="btn btn-primary">@Html.ActionLink("Create New Car", "Create", "Cars", new { @style = "color: white" })</div>
+
+
+<div style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 5px">
+    <div style="width: 100%; display: flex; align-items: center" class="form-group">
+        <label style="margin-right: 15px; margin-bottom: 0px">Find Car</label>
+        <input id="input" class="form-control" type="text" placeholder="Enter a name" />
+    </div>
+    <div id="sort" style="width: 100px; color: white" class="btn btn-info">Sort</div>
+</div>
+<div id="carsContainer">
+    @foreach (var car in Model)
+    {
+        <div id="car" style="padding: 10px 15px; background-color: #f4f4f4; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <p style="margin-bottom: 0">@car.Name</p>
+            <div>
+                <div class="btn btn-danger">@Html.ActionLink("Delete Car", "Delete", "Cars", new { id = car.Id }, new { @style = "color: white"})</div>
+                <div class="btn btn-success">@Html.ActionLink("Update Car", "Update", "Cars", new { id = car.Id }, new { @style = "color: white" })</div>
+            </div>
+
+        </div>
+    }
+</div>
+
+
+<script>
+    const input = document.querySelector('#input')
+    const data = document.querySelectorAll('#car')
+
+    input.addEventListener('input', () => {
+        console.log(input.value.length)
+        if (input.value.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].style.display = "flex"
+            }
+        }
+
+        for (let i = 0; i < data.length; i++) {
+            if ((data[i].children[0].innerText).includes(input.value)) {
+
+                data[i].style.display = "flex"
+            } else {
+                data[i].style.display = "none"
+            }
+        }
+    })
+
+    document.getElementById("sort").addEventListener("click", () => {
+        const cars = []
+        const data = document.querySelectorAll('#car')
+
+        for (let i = 0; i < data.length; i++) {
+            cars.push(data[i].children[0].innerText)
+        }
+        const carsSorted = cars.sort()
+        console.log(carsSorted)
+
+        const carsContainer = document.getElementById("carsContainer")
+        carsContainer.innerHTML = ""
+
+        for (let i = 0; i < carsSorted.length; i++) {
+            for (let j = 0; j < data.length; j++) {
+                if (carsSorted[i] === data[j].children[0].innerText) {
+                    carsContainer.append(data[j])
+                    break
+                }
+            }
+        }
+        
+    })
+</script>
+
